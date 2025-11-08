@@ -1,5 +1,4 @@
 {
-  "$schema": "https://schemastore.org/tsconfig.json",
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "lib": [
@@ -7,33 +6,19 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "module": "ESNext",
     "types": [
       "vite/client",
       "@cloudflare/workers-types",
       "wicg-file-system-access"
     ],
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "allowJs": true,
-    "useDefineForClassFields": true,
-    "rewriteRelativeImportExtensions": true,
-    "verbatimModuleSyntax": true,
     "baseUrl": ".",
     "paths": {
       "~/*": [
         "./src/*"
       ]
-    },
-    "strictNullChecks": true,
-    "noUncheckedIndexedAccess": true,
-    "noFallthroughCasesInSwitch": true
+    }
   },
   "include": [
     "./src"
-  ],
-  "exclude": [
-    "node_modules"
   ]
 }
