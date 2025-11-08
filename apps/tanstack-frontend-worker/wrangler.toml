@@ -1,0 +1,28 @@
+name = "mulroy-recipes-tanstack-frontend"
+main = "./src/worker.ts"
+compatibility_date = "2025-09-24"
+compatibility_flags = [
+  "enable_request_signal",
+  "nodejs_compat"
+]
+
+[vars]
+MY_VAR = "Hello from Cloudflare"
+
+[env.prod]
+name = "mulroy-recipes-tanstack-frontend"
+
+[env.prod.vars]
+MY_VAR = "Hello from Cloudflare"
+
+[env.preview]
+name = "mulroy-recipes-tanstack-frontend-preview"
+
+[env.preview.vars]
+MY_VAR = "Hello from Cloudflare"
+
+[env.dev]
+name = "mulroy-recipes-tanstack-frontend-dev"
+
+[env.dev.vars]
+MY_VAR = "Hello from Cloudflare"

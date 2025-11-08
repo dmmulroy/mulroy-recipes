@@ -1,0 +1,23 @@
+/* @import '@livestore/devtools-react/index.css'; */
+/* NOTE: Vite will rename this file to `devtools-chrome.css` by default */
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #0c0c0c;
+  color: #fff;
+}
+iframe {
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+#loading {
+  font-size: 14px;
+  padding: 12px;
+  color: #c0c9d2;
+}

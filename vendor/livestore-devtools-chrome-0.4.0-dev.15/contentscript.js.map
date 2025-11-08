@@ -1,0 +1,1 @@
+{"version":3,"file":"contentscript.js","sources":["../src/contentscript.ts"],"sourcesContent":["// NOTE static imports aren't yet supported in Chrome extensions, so we use dynamic imports as an entry point\nimport('./contentscript-main.js')\n"],"names":[],"mappings":"AACA,OAAO,kCAAyB;"}

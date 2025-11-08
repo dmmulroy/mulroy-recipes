@@ -1,0 +1,19 @@
+{
+  "name": "@mulroy-recipes/reverse-proxy-worker",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "cf-typegen": "wrangler types"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20251106.1",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.46.0"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}

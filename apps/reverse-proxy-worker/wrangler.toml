@@ -1,0 +1,48 @@
+name = "mulroy-recipes-reverse-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-11-07"
+compatibility_flags = [
+  "enable_request_signal",
+  "nodejs_compat"
+]
+
+[[services]]
+binding = "SYNC_WORKER"
+service = "mulroy-recipes-sync-cf"
+
+[[services]]
+binding = "TANSTACK_WORKER"
+service = "mulroy-recipes-tanstack-frontend"
+
+[env.prod]
+name = "mulroy-recipes-reverse-proxy"
+
+[[env.prod.services]]
+binding = "SYNC_WORKER"
+service = "mulroy-recipes-sync-cf"
+
+[[env.prod.services]]
+binding = "TANSTACK_WORKER"
+service = "mulroy-recipes-tanstack-frontend"
+
+[env.preview]
+name = "mulroy-recipes-reverse-proxy-preview"
+
+[[env.preview.services]]
+binding = "SYNC_WORKER"
+service = "mulroy-recipes-sync-cf-preview"
+
+[[env.preview.services]]
+binding = "TANSTACK_WORKER"
+service = "mulroy-recipes-tanstack-frontend-preview"
+
+[env.dev]
+name = "mulroy-recipes-reverse-proxy-dev"
+
+[[env.dev.services]]
+binding = "SYNC_WORKER"
+service = "mulroy-recipes-sync-cf-dev"
+
+[[env.dev.services]]
+binding = "TANSTACK_WORKER"
+service = "mulroy-recipes-tanstack-frontend-dev"

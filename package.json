@@ -1,0 +1,7 @@
+{
+  "name": "mulroy-recipes",
+  "private": true,
+  "devDependencies": {
+    "wrangler": "^3.78.0"
+  }
+}

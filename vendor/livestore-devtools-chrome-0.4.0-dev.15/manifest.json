@@ -1,0 +1,79 @@
+{
+  "name": "LiveStore Devtools (Dev Build)",
+  "description": "Devtools for LiveStore providing a real-time databrowser and other development tools.",
+  "version": "0.4.0.15",
+  "manifest_version": 3,
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "devtools_page": "livestore-devtools.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "run_at": "document_idle",
+      "js": [
+        "contentscript.js"
+      ]
+    }
+  ],
+  "incognito": "split",
+  "background": {
+    "service_worker": "background-lsd-0.4.0-dev.15.js",
+    "type": "module"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+  },
+  "action": {},
+  "permissions": [
+    "offscreen",
+    "clipboardWrite"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        ".vite",
+        "Runtime-tg7FVKZy.js",
+        "Runtime-tg7FVKZy.js.map",
+        "background-lsd-0.4.0-dev.15.js",
+        "background.js.map",
+        "buildnumber.js",
+        "buildnumber.js.map",
+        "contentscript-iframe-0.4.0-dev.15.html",
+        "contentscript-iframe.js",
+        "contentscript-iframe.js.map",
+        "contentscript-main-Cna3v8oz.js",
+        "contentscript-main-Cna3v8oz.js.map",
+        "contentscript.js",
+        "contentscript.js.map",
+        "devtools-chrome.css",
+        "devtools.js",
+        "devtools.js.map",
+        "icon128.png",
+        "icon16.png",
+        "icon32.png",
+        "icon48.png",
+        "livestore-devtools.html",
+        "manifest.json",
+        "offscreen-for-clipboard.html",
+        "offscreen-for-clipboard.js",
+        "panel.html",
+        "panel.js",
+        "panel.js.map",
+        "schemas-DVnRa0Nd.js",
+        "schemas-DVnRa0Nd.js.map",
+        "service-worker-edge-DFrdh3-w.js",
+        "service-worker-edge-DFrdh3-w.js.map",
+        "contentscript-iframe.html"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}
