@@ -4,7 +4,9 @@
     "target": "ES2022",
     "module": "ESNext",
     "lib": [
-      "ES2022"
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
     ],
     "moduleResolution": "bundler",
     "skipLibCheck": true,
@@ -22,8 +24,23 @@
     "useDefineForClassFields": true,
     "rewriteRelativeImportExtensions": true,
     "verbatimModuleSyntax": true,
-    "exclude": [
-      "node_modules"
-    ]
-  }
+    "types": [
+      "./worker-configuration.d.ts",
+      "vite/client",
+      "wicg-file-system-access"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "./src",
+    "./worker-configuration.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

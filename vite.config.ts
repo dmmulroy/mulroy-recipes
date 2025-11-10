@@ -6,6 +6,8 @@ import { livestoreDevtoolsPlugin } from "@livestore/devtools-vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
 
+const cloudflareEnv = process.env.CLOUDFLARE_ENV;
+
 export default defineConfig({
   server: {
     port: 3000,
@@ -14,11 +16,16 @@ export default defineConfig({
     tsConfigPaths({
       projects: ["./tsconfig.json"],
     }),
-    cloudflare({ viteEnvironment: { name: "ssr" } }),
+    cloudflare({
+      viteEnvironment: { name: "ssr" },
+      ...(cloudflareEnv ? { environment: cloudflareEnv } : {}),
+    }),
     tanstackStart(),
     viteReact(),
     tailwindcss(),
-    livestoreDevtoolsPlugin({ schemaPath: "./src/livestore/schema.ts" }),
+    livestoreDevtoolsPlugin({
+      schemaPath: "./src/livestore/schema.ts",
+    }),
   ],
   optimizeDeps: {
     exclude: ["@livestore/wa-sqlite"],

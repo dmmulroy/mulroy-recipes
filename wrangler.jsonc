@@ -1,0 +1,59 @@
+{
+  "name": "mulroy-recipes-tanstack-frontend",
+  "main": "./src/server.ts",
+  "compatibility_date": "2025-09-24",
+  "compatibility_flags": [
+    "enable_request_signal",
+    "nodejs_compat"
+  ],
+  "secrets_store_secrets": [
+    {
+      "binding": "BETTER_AUTH_SECRET",
+      "store_id": "150a4e606f884462b542dc539cb41d48",
+      "secret_name": "BETTER_AUTH_SECRET"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SYNC_BACKEND_DO",
+        "class_name": "SyncBackendDO"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "SyncBackendDO"
+      ]
+    }
+  ],
+  "vars": {
+    "MY_VAR": "Hello from Cloudflare"
+  },
+  "env": {
+    "dev": {
+      "name": "mulroy-recipes-tanstack-frontend-dev",
+      "durable_objects": {
+        "bindings": [
+          {
+            "name": "SYNC_BACKEND_DO",
+            "class_name": "SyncBackendDO"
+          }
+        ]
+      },
+      "migrations": [
+        {
+          "tag": "v1",
+          "new_sqlite_classes": [
+            "SyncBackendDO"
+          ]
+        }
+      ],
+      "vars": {
+        "MY_VAR": "Hello from Cloudflare"
+      }
+    }
+  }
+}

@@ -17,6 +17,7 @@ import { Route as CustomScriptDotjsRouteImport } from './routes/customScript[.]j
 import { Route as PathlessLayoutRouteImport } from './routes/_pathlessLayout'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersIndexRouteImport } from './routes/users.index'
+import { Route as SyncIndexRouteImport } from './routes/sync/index'
 import { Route as PostsIndexRouteImport } from './routes/posts.index'
 import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
@@ -65,6 +66,11 @@ const UsersIndexRoute = UsersIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => UsersRoute,
+} as any)
+const SyncIndexRoute = SyncIndexRouteImport.update({
+  id: '/sync/',
+  path: '/sync/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PostsIndexRoute = PostsIndexRouteImport.update({
   id: '/',
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts/': typeof PostsIndexRoute
+  '/sync': typeof SyncIndexRoute
   '/users/': typeof UsersIndexRoute
   '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
@@ -140,6 +147,7 @@ export interface FileRoutesByTo {
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts': typeof PostsIndexRoute
+  '/sync': typeof SyncIndexRoute
   '/users': typeof UsersIndexRoute
   '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
@@ -160,6 +168,7 @@ export interface FileRoutesById {
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts/': typeof PostsIndexRoute
+  '/sync/': typeof SyncIndexRoute
   '/users/': typeof UsersIndexRoute
   '/_pathlessLayout/_nested-layout/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/_pathlessLayout/_nested-layout/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
@@ -179,6 +188,7 @@ export interface FileRouteTypes {
     | '/posts/$postId'
     | '/users/$userId'
     | '/posts/'
+    | '/sync'
     | '/users/'
     | '/route-a'
     | '/route-b'
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/posts/$postId'
     | '/users/$userId'
     | '/posts'
+    | '/sync'
     | '/users'
     | '/route-a'
     | '/route-b'
@@ -213,6 +224,7 @@ export interface FileRouteTypes {
     | '/posts/$postId'
     | '/users/$userId'
     | '/posts/'
+    | '/sync/'
     | '/users/'
     | '/_pathlessLayout/_nested-layout/route-a'
     | '/_pathlessLayout/_nested-layout/route-b'
@@ -229,6 +241,7 @@ export interface RootRouteChildren {
   RedirectRoute: typeof RedirectRoute
   UsersRoute: typeof UsersRouteWithChildren
   ApiUsersRoute: typeof ApiUsersRouteWithChildren
+  SyncIndexRoute: typeof SyncIndexRoute
   PostsPostIdDeepRoute: typeof PostsPostIdDeepRoute
 }
 
@@ -289,6 +302,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/users/'
       preLoaderRoute: typeof UsersIndexRouteImport
       parentRoute: typeof UsersRoute
+    }
+    '/sync/': {
+      id: '/sync/'
+      path: '/sync'
+      fullPath: '/sync'
+      preLoaderRoute: typeof SyncIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/posts/': {
       id: '/posts/'
@@ -431,6 +451,7 @@ const rootRouteChildren: RootRouteChildren = {
   RedirectRoute: RedirectRoute,
   UsersRoute: UsersRouteWithChildren,
   ApiUsersRoute: ApiUsersRouteWithChildren,
+  SyncIndexRoute: SyncIndexRoute,
   PostsPostIdDeepRoute: PostsPostIdDeepRoute,
 }
 export const routeTree = rootRouteImport
