@@ -6,13 +6,10 @@
     "enable_request_signal",
     "nodejs_compat"
   ],
-  "secrets_store_secrets": [
-    {
-      "binding": "BETTER_AUTH_SECRET",
-      "store_id": "150a4e606f884462b542dc539cb41d48",
-      "secret_name": "BETTER_AUTH_SECRET"
-    }
-  ],
+  "vars": {
+    "MY_VAR": "Hello from Cloudflare Prod",
+    "BETTER_AUTH_URL": "mulroy-recipes-tanstack-frontend.dillon-mulroy.workers.dev"
+  },
   "durable_objects": {
     "bindings": [
       {
@@ -21,6 +18,13 @@
       }
     ]
   },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "mulroy-recipes-d1",
+      "database_id": "71fc777a-3b1f-4052-889a-eeeec5311c1f"
+    }
+  ],
   "migrations": [
     {
       "tag": "v1",
@@ -29,9 +33,6 @@
       ]
     }
   ],
-  "vars": {
-    "MY_VAR": "Hello from Cloudflare"
-  },
   "env": {
     "dev": {
       "name": "mulroy-recipes-tanstack-frontend-dev",
@@ -52,8 +53,16 @@
         }
       ],
       "vars": {
-        "MY_VAR": "Hello from Cloudflare"
-      }
+        "MY_VAR": "Hello from Cloudflare Dev",
+        "BETTER_AUTH_URL": "mulroy-recipes-tanstack-frontend-dev.dillon-mulroy.workers.dev"
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "mulroy-recipes-d1-dev",
+          "database_id": "2f6c94c1-4ec9-4c3e-be37-30f8a85bab80"
+        }
+      ]
     }
   }
 }
