@@ -17,9 +17,10 @@ export const Route = createFileRoute("/sync/")({
   server: {
     handlers: {
       // @ts-expect-error
-      POST: async ({ request }) => {
+      POST: async ({ request, context }) => {
         // @ts-expect-error
         const searchParams = SyncBackend.matchSyncRequest(request);
+        console.log("DB: ", context.DB);
 
         const ctx: CfTypes.ExecutionContext = {} as CfTypes.ExecutionContext;
 
