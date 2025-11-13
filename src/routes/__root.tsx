@@ -2,6 +2,7 @@
 import {
   HeadContent,
   Link,
+  Outlet,
   Scripts,
   createRootRoute,
 } from "@tanstack/react-router";
@@ -9,11 +10,19 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import * as React from "react";
 import { DefaultCatchBoundary } from "~/components/DefaultCatchBoundary";
 import { NotFound } from "~/components/NotFound";
-import { LiveStoreShell } from "~/livestore-shell";
+import { getSession } from "~/lib/auth/get-session";
+import { authClient } from "~/lib/auth/client";
+import { LiveStoreShell } from "~/lib/livestore/livestore-shell";
 import appCss from "~/styles/app.css?url";
 import { seo } from "~/utils/seo";
+import { Button } from "~/components/ui/button";
 
 export const Route = createRootRoute({
+  beforeLoad: async () => {
+    const session = await getSession();
+
+    return { user: session?.user ?? null };
+  },
   head: () => ({
     meta: [
       {
@@ -64,6 +73,13 @@ export const Route = createRootRoute({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const routeContext = Route.useRouteContext();
+
+  const handleSignOut = async () => {
+    await authClient.signOut();
+    window.location.href = "/login";
+  };
+
   return (
     <html>
       <head>
@@ -71,7 +87,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <nav className="border-b border-border bg-card">
-          <div className="p-4 flex gap-4 text-sm">
+          <div className="p-4 flex gap-4 text-sm items-center">
             <Link
               to="/"
               activeProps={{
@@ -85,70 +101,38 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             >
               Home
             </Link>
-            <Link
-              to="/posts"
-              activeProps={{
-                className: "font-bold text-primary",
-              }}
-              inactiveProps={{
-                className:
-                  "text-muted-foreground hover:text-foreground transition-colors",
-              }}
-            >
-              Posts
-            </Link>
-            <Link
-              to="/users"
-              activeProps={{
-                className: "font-bold text-primary",
-              }}
-              inactiveProps={{
-                className:
-                  "text-muted-foreground hover:text-foreground transition-colors",
-              }}
-            >
-              Users
-            </Link>
-            <Link
-              to="/route-a"
-              activeProps={{
-                className: "font-bold text-primary",
-              }}
-              inactiveProps={{
-                className:
-                  "text-muted-foreground hover:text-foreground transition-colors",
-              }}
-            >
-              Pathless Layout
-            </Link>
-            <Link
-              to="/deferred"
-              activeProps={{
-                className: "font-bold text-primary",
-              }}
-              inactiveProps={{
-                className:
-                  "text-muted-foreground hover:text-foreground transition-colors",
-              }}
-            >
-              Deferred
-            </Link>
-            <Link
-              // @ts-expect-error
-              to="/this-route-does-not-exist"
-              activeProps={{
-                className: "font-bold text-primary",
-              }}
-              inactiveProps={{
-                className:
-                  "text-muted-foreground hover:text-foreground transition-colors",
-              }}
-            >
-              This Route Does Not Exist
-            </Link>
+            {routeContext.user && (
+              <>
+                <Link
+                  to="/dashboard"
+                  activeProps={{
+                    className: "font-bold text-primary",
+                  }}
+                  inactiveProps={{
+                    className:
+                      "text-muted-foreground hover:text-foreground transition-colors",
+                  }}
+                >
+                  Dashboard
+                </Link>
+                <div className="ml-auto flex items-center gap-4">
+                  <span className="text-muted-foreground">
+                    {routeContext.user.email}
+                  </span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleSignOut}
+                  >
+                    Sign Out
+                  </Button>
+                </div>
+              </>
+            )}
           </div>
         </nav>
-        <LiveStoreShell>{children}</LiveStoreShell>
+        <div>{children}</div>
+        {/* <LiveStoreShell>{children}</LiveStoreShell> */}
         <TanStackRouterDevtools position="bottom-right" />
         <Scripts />
       </body>

@@ -38,6 +38,7 @@
   },
   "include": [
     "./src",
+    "./scripts",
     "./worker-configuration.d.ts"
   ],
   "exclude": [

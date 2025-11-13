@@ -1,7 +1,7 @@
 import { makeWorker } from "@livestore/adapter-web/worker";
 import { makeHttpSync } from "@livestore/sync-cf/client";
 
-import { schema } from "./livestore/schema";
+import { schema } from "./schema";
 
 makeWorker({
   schema,

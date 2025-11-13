@@ -5,8 +5,8 @@ import { LiveStoreProvider } from "@livestore/react";
 import { makePersistedAdapter } from "@livestore/adapter-web";
 import { unstable_batchedUpdates as batchUpdates } from "react-dom";
 import LiveStoreWorker from "./livestore.worker.ts?worker";
-import { getStoreId } from "./livestore/store-id";
-import { schema, SyncPayload } from "./livestore/schema";
+import { getStoreId } from "./store-id";
+import { schema, SyncPayload } from "./schema";
 
 const storeId = getStoreId();
 

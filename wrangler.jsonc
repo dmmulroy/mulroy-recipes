@@ -8,7 +8,8 @@
   ],
   "vars": {
     "MY_VAR": "Hello from Cloudflare Prod",
-    "BETTER_AUTH_URL": "mulroy-recipes-tanstack-frontend.dillon-mulroy.workers.dev"
+    "BETTER_AUTH_URL": "mulroy-recipes-tanstack-frontend.dillon-mulroy.workers.dev",
+    "NODE_ENV": "production"
   },
   "durable_objects": {
     "bindings": [
@@ -55,7 +56,8 @@
       ],
       "vars": {
         "MY_VAR": "Hello from Cloudflare Dev",
-        "BETTER_AUTH_URL": "mulroy-recipes-tanstack-frontend-dev.dillon-mulroy.workers.dev"
+        "BETTER_AUTH_URL": "mulroy-recipes-tanstack-frontend-dev.dillon-mulroy.workers.dev",
+        "NODE_ENV": "production"
       },
       "d1_databases": [
         {

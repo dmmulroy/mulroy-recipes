@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type { CfTypes } from "@livestore/sync-cf/cf-worker";
 import * as SyncBackend from "@livestore/sync-cf/cf-worker";
-import { SyncPayload } from "../../livestore/schema";
+import { SyncPayload } from "~/lib/livestore/schema";
 
 const validatePayload = (
   payload: typeof SyncPayload.Type | undefined,
@@ -15,10 +15,11 @@ const validatePayload = (
 
 export const Route = createFileRoute("/sync/")({
   server: {
+    // @ts-ignore
     handlers: {
-      // @ts-expect-error
+      // @ts-ignore
       POST: async ({ request, context }) => {
-        // @ts-expect-error
+        // @ts-ignore
         const searchParams = SyncBackend.matchSyncRequest(request);
         console.log("DB: ", context.DB);
 

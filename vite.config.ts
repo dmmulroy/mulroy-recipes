@@ -24,7 +24,7 @@ export default defineConfig({
     viteReact(),
     tailwindcss(),
     livestoreDevtoolsPlugin({
-      schemaPath: "./src/livestore/schema.ts",
+      schemaPath: "./src/lib/livestore/schema.ts",
     }),
   ],
   optimizeDeps: {
