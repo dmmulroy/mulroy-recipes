@@ -7,6 +7,7 @@ import { unstable_batchedUpdates as batchUpdates } from "react-dom";
 import LiveStoreWorker from "./livestore.worker.ts?worker";
 import { getStoreId } from "./store-id";
 import { schema, SyncPayload } from "./schema";
+import { Skeleton } from "~/components/ui/skeleton";
 
 const storeId = getStoreId();
 
@@ -22,7 +23,13 @@ export const LiveStoreShell: React.FC<{ children: React.ReactNode }> = ({
   <LiveStoreProvider
     schema={schema}
     adapter={adapter}
-    renderLoading={(_) => <div>Loading LiveStore ({_.stage})...</div>}
+    renderLoading={() => (
+      <div className="p-6 space-y-4">
+        <Skeleton className="h-8 w-64" />
+        <Skeleton className="h-4 w-96" />
+        <Skeleton className="h-4 w-80" />
+      </div>
+    )}
     batchUpdates={batchUpdates}
     storeId={storeId}
     syncPayloadSchema={SyncPayload}

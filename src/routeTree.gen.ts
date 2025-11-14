@@ -12,8 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as RedirectRouteImport } from './routes/redirect'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as SyncIndexRouteImport } from './routes/sync/index'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as ApiUsersRouteImport } from './routes/api/users'
 import { Route as AuthenticatedFooRouteImport } from './routes/_authenticated/foo'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
@@ -33,15 +33,15 @@ const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SyncIndexRoute = SyncIndexRouteImport.update({
   id: '/sync/',
   path: '/sync/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 const ApiUsersRoute = ApiUsersRouteImport.update({
   id: '/api/users',
@@ -65,73 +65,72 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/redirect': typeof RedirectRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/foo': typeof AuthenticatedFooRoute
   '/api/users': typeof ApiUsersRoute
+  '/': typeof AuthenticatedIndexRoute
   '/sync': typeof SyncIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/redirect': typeof RedirectRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/foo': typeof AuthenticatedFooRoute
   '/api/users': typeof ApiUsersRoute
+  '/': typeof AuthenticatedIndexRoute
   '/sync': typeof SyncIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
   '/redirect': typeof RedirectRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/foo': typeof AuthenticatedFooRoute
   '/api/users': typeof ApiUsersRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
   '/sync/': typeof SyncIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/login'
     | '/redirect'
     | '/dashboard'
     | '/foo'
     | '/api/users'
+    | '/'
     | '/sync'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/login'
     | '/redirect'
     | '/dashboard'
     | '/foo'
     | '/api/users'
+    | '/'
     | '/sync'
     | '/api/auth/$'
   id:
     | '__root__'
-    | '/'
     | '/_authenticated'
     | '/login'
     | '/redirect'
     | '/_authenticated/dashboard'
     | '/_authenticated/foo'
     | '/api/users'
+    | '/_authenticated/'
     | '/sync/'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   LoginRoute: typeof LoginRoute
   RedirectRoute: typeof RedirectRoute
@@ -163,19 +162,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/sync/': {
       id: '/sync/'
       path: '/sync'
       fullPath: '/sync'
       preLoaderRoute: typeof SyncIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/': {
+      id: '/_authenticated/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
     '/api/users': {
       id: '/api/users'
@@ -211,11 +210,13 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedFooRoute: typeof AuthenticatedFooRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedFooRoute: AuthenticatedFooRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
@@ -223,7 +224,6 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   LoginRoute: LoginRoute,
   RedirectRoute: RedirectRoute,

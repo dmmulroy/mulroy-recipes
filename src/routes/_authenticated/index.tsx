@@ -1,13 +1,8 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { env } from "cloudflare:workers";
 
-export const Route = createFileRoute("/")({
-  beforeLoad: ({ context }) => {
-    if (!context.user) {
-      throw redirect({ to: "/login" });
-    }
-  },
+export const Route = createFileRoute("/_authenticated/")({
   loader: () => getData(),
   component: Home,
 });
